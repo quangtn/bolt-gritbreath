@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Square, RotateCcw, Shield } from 'lucide-react';
+import { Play, Square, RotateCcw, Shield, HelpCircle } from 'lucide-react';
 import { useBreathHoldTimer } from '../../hooks/useBreathHoldTimer';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { TestResult, NavigationTab } from '../../types';
 import { getAssessmentDetails } from '../../data/assessmentData';
 import CircularProgress from '../CircularProgress';
 import SafetyModal from '../SafetyModal';
+import HowItWorksPage from './HowItWorksPage';
 
 interface TestPageProps {
   onNavigate: (tab: NavigationTab) => void;
@@ -16,6 +17,7 @@ const TestPage: React.FC<TestPageProps> = ({ onNavigate }) => {
   const [testResults, setTestResults] = useLocalStorage<TestResult[]>('gritbreath-results', []);
   const [safetyAccepted, setSafetyAccepted] = useLocalStorage('gritbreath-safety-accepted', false);
   const [showSafetyModal, setShowSafetyModal] = useState(false);
+  const [showHowItWorks, setShowHowItWorks] = useState(false);
   const [lastResult, setLastResult] = useLocalStorage<TestResult | null>('gritbreath-last-result', null);
   const [testComplete, setTestComplete] = useState(false);
 
@@ -94,14 +96,40 @@ const TestPage: React.FC<TestPageProps> = ({ onNavigate }) => {
         onAccept={handleSafetyAccept}
       />
       
-      {/* Safety Info Button */}
-      <button
-        onClick={() => onNavigate('safety')}
-        className="absolute top-4 right-4 md:top-6 md:right-6 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-colors"
-        title="Safety Information"
-      >
-        <Shield className="w-5 h-5 text-gray-600" />
-      </button>
+      {/* How It Works Modal */}
+      {showHowItWorks && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50">
+          <div className="relative h-full">
+            <button
+              onClick={() => setShowHowItWorks(false)}
+              className="absolute top-4 right-4 z-60 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <HowItWorksPage />
+          </div>
+        </div>
+      )}
+      
+      {/* Help and Safety Buttons */}
+      <div className="absolute top-4 right-4 md:top-6 md:right-6 flex space-x-2">
+        <button
+          onClick={() => setShowHowItWorks(true)}
+          className="p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-colors"
+          title="How It Works"
+        >
+          <HelpCircle className="w-5 h-5 text-gray-600" />
+        </button>
+        <button
+          onClick={() => onNavigate('safety')}
+          className="p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-colors"
+          title="Safety Information"
+        >
+          <Shield className="w-5 h-5 text-gray-600" />
+        </button>
+      </div>
 
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">GritBreath</h1>

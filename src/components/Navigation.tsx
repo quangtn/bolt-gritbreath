@@ -1,5 +1,5 @@
 import React from 'react';
-import { Settings, TestTube, Award, BarChart3, Shield } from 'lucide-react';
+import { Activity, Award, BarChart3, Shield } from 'lucide-react';
 import { NavigationTab } from '../types';
 
 interface NavigationProps {
@@ -9,8 +9,7 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }) => {
   const tabs = [
-    { id: 'how-it-works' as NavigationTab, label: 'How It Works', icon: Settings },
-    { id: 'test' as NavigationTab, label: 'Test', icon: TestTube },
+    { id: 'test' as NavigationTab, label: 'Test', icon: Activity },
     { id: 'assessment' as NavigationTab, label: 'Assessment', icon: Award },
     { id: 'history' as NavigationTab, label: 'History', icon: BarChart3 },
     { id: 'safety' as NavigationTab, label: 'Safety', icon: Shield }

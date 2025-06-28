@@ -33,3 +33,4 @@ export interface SafetyContradiction {
 }
 
 export type NavigationTab = 'how-it-works' | 'test' | 'assessment' | 'history' | 'safety';
+export type NavigationTab = 'test' | 'assessment' | 'history' | 'safety';

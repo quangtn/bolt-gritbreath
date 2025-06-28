@@ -8,17 +8,11 @@ import HowItWorksPage from './components/pages/HowItWorksPage';
 import SafetyPage from './components/pages/SafetyPage';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<NavigationTab>('how-it-works');
+  const [activeTab, setActiveTab] = useState<NavigationTab>('test');
 
   // Start with tutorial for first-time users
   useEffect(() => {
-    const hasCompletedTutorial = localStorage.getItem('gritbreath-tutorial-completed');
-    if (!hasCompletedTutorial) {
-      setActiveTab('how-it-works');
-      localStorage.setItem('gritbreath-tutorial-completed', 'true');
-    } else {
-      setActiveTab('test');
-    }
+    setActiveTab('test');
   }, []);
 
   const handleNavigate = (tab: NavigationTab) => {
@@ -27,8 +21,6 @@ function App() {
 
   const renderPage = () => {
     switch (activeTab) {
-      case 'how-it-works':
-        return <HowItWorksPage />;
       case 'test':
         return <TestPage onNavigate={handleNavigate} />;
       case 'assessment':
