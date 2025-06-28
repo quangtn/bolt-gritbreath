@@ -31,6 +31,3 @@ export interface SafetyContradiction {
   reason: string;
   severity: 'high' | 'medium';
 }
-
-export type NavigationTab = 'how-it-works' | 'test' | 'assessment' | 'history' | 'safety';
-export type NavigationTab = 'test' | 'assessment' | 'history' | 'safety';

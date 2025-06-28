@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { NavigationTab } from './types';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import TestPage from './components/pages/TestPage';
 import AssessmentPage from './components/pages/AssessmentPage';
@@ -8,39 +7,22 @@ import HowItWorksPage from './components/pages/HowItWorksPage';
 import SafetyPage from './components/pages/SafetyPage';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<NavigationTab>('test');
-
-  // Start with tutorial for first-time users
-  useEffect(() => {
-    setActiveTab('test');
-  }, []);
-
-  const handleNavigate = (tab: NavigationTab) => {
-    setActiveTab(tab);
-  };
-
-  const renderPage = () => {
-    switch (activeTab) {
-      case 'test':
-        return <TestPage onNavigate={handleNavigate} />;
-      case 'assessment':
-        return <AssessmentPage />;
-      case 'history':
-        return <HistoryPage />;
-      case 'safety':
-        return <SafetyPage />;
-      default:
-        return <TestPage onNavigate={handleNavigate} />;
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
-      <main className="relative">
-        {renderPage()}
-      </main>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <main className="relative">
+          <Routes>
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/test" element={<TestPage />} />
+            <Route path="/assessment" element={<AssessmentPage />} />
+            <Route path="/history" element={<HistoryPage />} />
+            <Route path="/safety" element={<SafetyPage />} />
+            <Route path="*" element={<Navigate to="/how-it-works" />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
