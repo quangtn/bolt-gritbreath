@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Settings, Target, Play, Square, Award } from 'lucide-react';
 
-const HowItWorksPage: React.FC = () => {
+interface HowItWorksPageProps {
+  onClose?: () => void;
+}
+
+const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onClose }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -48,7 +52,17 @@ const HowItWorksPage: React.FC = () => {
   ];
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    if (currentSlide === slides.length - 1) {
+      // If on last slide and onClose is provided, close the modal
+      if (onClose) {
+        onClose();
+      } else {
+        // Otherwise, cycle back to first slide
+        setCurrentSlide(0);
+      }
+    } else {
+      setCurrentSlide((prev) => prev + 1);
+    }
   };
 
   const prevSlide = () => {
@@ -105,7 +119,13 @@ const HowItWorksPage: React.FC = () => {
             onClick={nextSlide}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
           >
-            <ChevronRight size={24} />
+            {currentSlide === slides.length - 1 && onClose ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <ChevronRight size={24} />
+            )}
           </button>
 
           {/* Slide Indicator */}
