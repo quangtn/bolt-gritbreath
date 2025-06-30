@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 import TestPage from './components/pages/TestPage';
 import AssessmentPage from './components/pages/AssessmentPage';
 import HistoryPage from './components/pages/HistoryPage';
@@ -9,9 +10,9 @@ import SafetyPage from './components/pages/SafetyPage';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 flex flex-col">
         <Navigation />
-        <main className="relative">
+        <main className="relative flex-1">
           <Routes>
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/test" element={<TestPage />} />
@@ -21,6 +22,7 @@ function App() {
             <Route path="*" element={<Navigate to="/how-it-works" />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );
