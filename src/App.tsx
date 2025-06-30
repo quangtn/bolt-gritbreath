@@ -4,7 +4,6 @@ import Footer from './components/Footer';
 import TestPage from './components/pages/TestPage';
 import AssessmentPage from './components/pages/AssessmentPage';
 import HistoryPage from './components/pages/HistoryPage';
-import HowItWorksPage from './components/pages/HowItWorksPage';
 import SafetyPage from './components/pages/SafetyPage';
 
 function App() {
@@ -14,12 +13,11 @@ function App() {
         <Navigation />
         <main className="relative flex-1">
           <Routes>
-            <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/test" element={<TestPage />} />
             <Route path="/assessment" element={<AssessmentPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/safety" element={<SafetyPage />} />
-            <Route path="*" element={<Navigate to="/how-it-works" />} />
+            <Route path="*" element={<Navigate to="/test" />} />
           </Routes>
         </main>
         <Footer />

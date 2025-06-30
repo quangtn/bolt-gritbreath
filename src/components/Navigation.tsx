@@ -6,7 +6,6 @@ const Navigation = () => {
   const activeTab = location.pathname.replace('/', '');
 
   const tabs = [
-    { id: 'how-it-works', label: 'How It Works', path: '/how-it-works', icon: BookOpen },
     { id: 'test', label: 'Test', path: '/test', icon: Activity },
     { id: 'assessment', label: 'Assessment', path: '/assessment', icon: Award },
     { id: 'history', label: 'History', path: '/history', icon: BarChart3 },
